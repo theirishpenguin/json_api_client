@@ -132,7 +132,8 @@ module JsonApiClient
       #
       # @return [Hash] Headers
       def custom_headers
-        _header_store.to_h
+        #_header_store.to_h
+        _header_store # for 1.9.3 compat
       end
 
       # Returns the requestor for this resource class
