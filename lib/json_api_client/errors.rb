@@ -16,6 +16,9 @@ module JsonApiClient
     class NotAuthorized < ClientError
     end
 
+    class UnsupportedMediaType < ClientError
+    end
+
     class BadRequest < ClientError
     end
 

@@ -56,11 +56,20 @@ class ErrorsTest < MiniTest::Test
     end
   end
 
-  def test_access_denied
+  def test_bad_request
     stub_request(:get, "http://example.com/users")
       .to_return(headers: {content_type: "text/plain"}, status: 400, body: "bad request")
 
     assert_raises JsonApiClient::Errors::BadRequest do
+      User.all
+    end
+  end
+
+  def test_unsupported_media_type
+    stub_request(:get, "http://example.com/users")
+      .to_return(headers: {content_type: "text/plain"}, status: 415, body: "unsupported media type")
+
+    assert_raises JsonApiClient::Errors::UnsupportedMediaType do
       User.all
     end
   end

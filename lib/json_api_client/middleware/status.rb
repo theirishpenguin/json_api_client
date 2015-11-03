@@ -28,6 +28,8 @@ module JsonApiClient
           raise Errors::AccessDenied, env
         when 404
           raise Errors::NotFound, env[:url]
+        when 415
+          raise Errors::UnsupportedMediaType, env
         when 400..499
           # some other error
         when 500..599
