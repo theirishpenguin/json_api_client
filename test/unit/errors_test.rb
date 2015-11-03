@@ -56,6 +56,15 @@ class ErrorsTest < MiniTest::Test
     end
   end
 
+  def test_access_denied
+    stub_request(:get, "http://example.com/users")
+      .to_return(headers: {content_type: "text/plain"}, status: 400, body: "bad request")
+
+    assert_raises JsonApiClient::Errors::BadRequest do
+      User.all
+    end
+  end
+
   def test_errors_are_rescuable_by_default_rescue
     begin
       raise JsonApiClient::Errors::ApiError, "Something bad happened"
