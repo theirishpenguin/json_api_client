@@ -114,6 +114,8 @@ class CompoundDocumentTest < MiniTest::Test
     assert_equal "1", article.id
     assert_equal "JSON API paints my bikeshed!", article.title
 
+#    require 'byebug'
+#    debugger
     author = article.author
     assert author.is_a?(Person), "expected this has-one relation to return a single Person resource"
     assert_equal "Dan", author["first-name"]

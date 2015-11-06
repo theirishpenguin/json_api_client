@@ -32,6 +32,7 @@ module JsonApiClient
           raise Errors::UnsupportedMediaType, env
         when 400..499
           # some other error
+          raise Errors::UnexpectedStatus.new(code, env[:url]) # Temp fix
         when 500..599
           raise Errors::ServerError, env
         else
