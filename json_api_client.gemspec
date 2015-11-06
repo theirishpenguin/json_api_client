@@ -6,7 +6,7 @@ $:.push File.expand_path("../lib", __FILE__)
 require 'json_api_client/version'
 
 Gem::Specification.new do |s|
-  s.name = "json_api_client"
+  s.name = "penguin-json_api_client"
   s.version = JsonApiClient::VERSION
   s.description = 'Build client libraries compliant with specification defined by jsonapi.org'
   s.summary = 'Build client libraries compliant with specification defined by jsonapi.org'
