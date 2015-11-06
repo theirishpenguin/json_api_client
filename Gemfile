@@ -8,7 +8,7 @@ as_version = ENV["AS_VERSION"] || "default"
 
 as_version = case as_version
 when "default"
-  ">= 3.2.0"
+  ">= 3.1.0"
 else
   "~> #{as_version}"
 end
@@ -16,8 +16,8 @@ end
 gem "activesupport", as_version
 gem 'addressable', '~> 2.2'
 
-# 3.2 now requires the minitest gem
-if as_version =~ /3\.2\./
+# 3.2 now requires the minitest gem (going to include in for 3.1 too)
+if as_version =~ /3\.1\./
   gem "minitest", '~> 5'
 end
 
