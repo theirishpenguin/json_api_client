@@ -436,7 +436,9 @@ module JsonApiClient
     end
 
     def association_for(name)
-      self.class.associations.detect{|association| association.attr_name == name}
+      self.class.associations.detect do |association|
+        association.attr_name == JsonApiClient.configuration.key_formatter.unformat(name)
+      end
     end
 
     def attributes_for_serialization
