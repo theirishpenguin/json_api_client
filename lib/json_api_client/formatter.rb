@@ -10,7 +10,9 @@ module JsonApiClient
       end
 
       def unformat(arg)
-        arg
+         # We call to_s() here so that unformat consistently returns a string
+         # (instead of a symbol) regardless which Formatter subclass it is called on
+        arg.to_s
       end
 
       def formatter_for(format)

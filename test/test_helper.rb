@@ -6,6 +6,8 @@ require 'webmock/minitest'
 require 'mocha/mini_test'
 require 'pp'
 
+require 'json_api_client' # Note: Needed because the gem was renamed in the gemspec
+
 # shim for ActiveSupport 4.0.x requiring minitest 4.2
 unless defined?(Minitest::Test)
   Minitest::Test = Minitest::Unit::TestCase

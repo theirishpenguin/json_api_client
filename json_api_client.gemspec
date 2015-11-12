@@ -6,7 +6,9 @@ $:.push File.expand_path("../lib", __FILE__)
 require 'json_api_client/version'
 
 Gem::Specification.new do |s|
-  s.name = "penguin-json_api_client" # Note: This rename is breaking the test suite
+  # Note: Because we renamed the gem we need to require 'json_api_client' in the spec_helper.rb
+  s.name = "penguin-json_api_client"
+
   s.version = JsonApiClient::VERSION
   s.description = 'Build client libraries compliant with specification defined by jsonapi.org'
   s.summary = 'Build client libraries compliant with specification defined by jsonapi.org'

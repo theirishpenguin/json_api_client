@@ -58,7 +58,23 @@ class ResourceTest < MiniTest::Test
   end
 
   def test_dasherized_keys_support
+
+    JsonApiClient.configuration.json_key_format = :dasherized_key
     article = Article.new("foo-bar" => "baz")
+    # Exposed dasherized attributes as first class ruby methods and attributes
+    assert_equal("baz", article.foo_bar)
+    assert_equal("baz", article["foo_bar"])
+
+    JsonApiClient.configuration.json_key_format = :camelized_key
+    article = Article.new("fooBar" => "baz")
+    # Exposed camelized attributes as first class ruby methods and attributes
+    assert_equal("baz", article.foo_bar)
+    assert_equal("baz", article["foo_bar"])
+
+    JsonApiClient.configuration.json_key_format = :underscored_key
+    article = Article.new("foo-bar" => "baz")
+    # Does not recognize dasherized attributes, fall back to hash syntax
+    refute article.respond_to? :foo_bar
     assert_equal("baz", article.send("foo-bar"))
     assert_equal("baz", article.send(:"foo-bar"))
     assert_equal("baz", article["foo-bar"])
