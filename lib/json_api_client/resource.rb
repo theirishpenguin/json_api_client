@@ -54,7 +54,7 @@ module JsonApiClient
       #
       # @return [String] The table name for this resource
       def table_name
-        resource_name.pluralize
+        JsonApiClient.configuration.route_formatter.format(resource_name.pluralize)
       end
 
       # The name of a single resource. i.e. Article -> article, Person -> person

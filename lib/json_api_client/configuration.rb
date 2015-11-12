@@ -5,20 +5,16 @@ require 'json_api_client/formatter'
 module JsonApiClient
   class Configuration
     attr_reader :json_key_format,
-                :resource_key_type,
-                :key_formatter #,
-                #:route_format,
-                #:route_formatter,
+                :key_formatter,
+                :route_format,
+                :route_formatter
 
     def initialize
       #:underscored_key, :camelized_key, :dasherized_key, or custom
-      self.json_key_format = :dasherized_key
+      self.json_key_format = :underscored_key
 
-      ##:underscored_route, :camelized_route, :dasherized_route, or custom
-      #self.route_format = :dasherized_route
-
-      ##:integer, :uuid, :string, or custom (provide a proc)
-      #self.resource_key_type = :integer
+      #:underscored_route, :camelized_route, :dasherized_route, or custom
+      self.route_format = :underscored_route
     end
 
     def json_key_format=(format)
@@ -26,14 +22,10 @@ module JsonApiClient
       @key_formatter = JsonApiClient::Formatter.formatter_for(format)
     end
 
-    def resource_key_type=(key_type)
-      @resource_key_type = key_type
+    def route_format=(format)
+      @route_format = format
+      @route_formatter = JsonApiClient::Formatter.formatter_for(format)
     end
-
-    #def route_format=(format)
-    #  @route_format = format
-    #  @route_formatter = JsonApiClient::Formatter.formatter_for(format)
-    #end
 
   end
 
