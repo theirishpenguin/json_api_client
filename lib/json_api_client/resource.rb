@@ -249,7 +249,12 @@ module JsonApiClient
 
       def _build_connection(rebuild = false)
         return connection_object unless connection_object.nil? || rebuild
-        self.connection_object = connection_class.new(connection_options.merge(site: site)).tap do |conn|
+
+        extended_connection_options = connection_options.merge \
+          site: site,
+          retry_options: (self.respond_to?(:retry_options) ? retry_options : nil)
+
+        self.connection_object = connection_class.new(extended_connection_options).tap do |conn|
           yield(conn) if block_given?
         end
       end

@@ -160,6 +160,40 @@ MyApi::Account.where(user_id: 2).find(1)
 # => returns ResultSet
 ```
 
+### Retrying Requests
+
+If you would like to have requests retried you can use Faraday's builtin
+mechanism for doing so. Just add a retry_options() method to your Resource
+class. See http://www.rubydoc.info/github/lostisland/faraday/Faraday/Request/Retry
+for more details on available retry options.
+
+module MyApi
+  # this is an "abstract" base class that
+  class Base < JsonApiClient::Resource
+    # set the api base url in an abstract base class
+    self.site = "http://example.com/"
+
+    def retry_options
+      {
+        max: 2,
+        interval: 10.0,
+        interval_randomness: 0.5,
+        backoff_factor: 2,
+        exceptions: [
+          # defaults, as noted in the Faraday docs
+          Errno::ETIMEDOUT, Timeout::Error,
+          # examples of other exceptions you can catch...
+          OpenSSL::SSL::SSLErrorWaitReadable, Net::ReadTimeout,
+          Faraday::TimeoutError]
+      }
+    end
+
+  end
+
+  class Article < Base
+  end
+end
+
 ## Custom Methods
 
 You can create custom methods on both collections (class method) and members (instance methods).

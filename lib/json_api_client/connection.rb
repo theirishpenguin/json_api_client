@@ -5,8 +5,10 @@ module JsonApiClient
 
     def initialize(options = {})
       site = options.fetch(:site)
+      retry_options = options.fetch(:retry_options)
       adapter_options = Array(options.fetch(:adapter, Faraday.default_adapter))
       @faraday = Faraday.new(site) do |builder|
+        builder.request :retry, retry_options if retry_options
         builder.request :json
         builder.use Middleware::JsonRequest
         builder.use Middleware::Status
